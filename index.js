@@ -1,109 +1,153 @@
-const { title } = require('process');
+const fs = require('fs');
+const inquirer = require('inquirer')
 
-//node modules
-const = require('inquirer');
-cosnt fs = require('fs');
 
-// inquirer to generate questions 
-inquirer.prompt(
-    [
-       {
+const generateMarkdown = require('./generateMarkdown');
+
+
+
+
+//array of questions for user
+const questions = [
+    {
         type: "input",
-        message: "What's the project title?",
-        name: 'title',
-        //validate property to check the user provided a value
-        validate:(value)=>{if(value) {return true} else {return 'I need a value to continue'}},
-       },
-       { 
-        type: 'input',
-        message: 'How do you install your app?',
-        name: "installation" ,
-        validate:(value)=>{if(value){return true} else {return 'I need a value to continue'}},
-       },
-       { 
-        type:'input',
-        message: 'Any Credits?',
-        name: "instructions" ,
-        validate:(value)=>{if(value){return true} else {return 'I need a value to continue'}},
-       },
-       { 
-        type:'input',
-        message: 'How do you use your app?',
-        name: "usage",
-        validate:(value)=>{if(value){return true} else {return 'I need a value to continue'}},
-       },
-       { 
-           //list of license
-        type:'input',
-        message: 'What license did you use?',
-        name: "license",
-        choices:['The MIT License', 'The GPL License','Apache License', 'GNU License', 'N/A'],
-        validate: (value)=>{if(value){return true} else {return 'I need a value to continue'}},
-        },
-       {
-           type:'input',
-           message: 'Github username',
-           name: 'git',
-           validate: (value)=>{if(value){return true} else {return 'I need a value to continue'}},
-       },
-       {
-           type: 'input',
-           message: 'E-mail',
-           name: 'email',
-           validate: (value)=>{if(value){return true} else {return 'I need a value to continue'}},
-       }
-    ]
-).then(({
-    title,
-    installation,
-    instructions,
-    credit,
-    license,
-    git,
-    linkedin,
-    email,
-    usage,
-    contribution
-})=>{
-//template to be used
-const template = '#  ${title}
+        message: "What is the name of your project?",
+        name: "Title",
+        validate: titleInput => {
+            if (titleInput) {
+                return true;
+            } else {
+                console.log('Please enter a project title');
+                return false;
+            }
+        } 
+    },
+    {
+        type: "input",
+        message: "Describe your project",
+        name: "Description",
+        validate: descriptionInput => {
+            if (descriptionInput) {
+                return true;
+            } else {
+                console.log('Please enter a description');
+                return false;
+            }
+        }
+    },
+    {
+        type: "input",
+        message: "What are the steps required to install your project?",
+        name: "Installation",
+        validate: InstallationInput => {
+            if (InstallationInput) {
+                return true;
+            } else {
+                console.log('Please enter the steps required');
+                return false;
+            }
+        } 
+    },
+    {
+        type: "input",
+        message: "Provide instructions for use.",
+        name: "Usage",
+        validate: UsageInput => {
+            if (UsageInput) {
+                return true;
+            } else {
+                console.log('Please enter instructions');
+                return false;
+            }
+        } 
+    },
+    {
+        type: "input",
+        message: "Contribution",
+        name: "Contibutors",
+        validate: ContributorsInput => {
+            if (ContributorsInput) {
+                return true;
+            } else {
+                console.log('Please contributors');
+                return false;
+            }
+        } 
+    },
+    {
+        type: "list",
+        message: "Select applicable license",
+        choices: [
+            "MIT",
+            "GPL",
+            "Apache",
+        ],
+        validate: LicenseInput => {
+            if (LicenseInput) {
+                return true;
+            } else {
+                console.log('Please select a license');
+                return false;
+            }
+        } 
+    },
+    {
+        type: "input",
+        message: "Contact info any questions",
+        name: "Questions",
+        validate: QuestionsInput => {
+            if (QuestionsInput) {
+                return true;
+            } else {
+                console.log('Please enter contact info');
+                return false;
+            }
+        } 
+    },
+    {
+        type: "input",
+        message: "Your Github username",
+        name: "Username",
+        validate: UsernameInput => {
+            if (UsernameInput) {
+                return true;
+            } else {
+                console.log('Please enter Github');
+                return false;
+            }
+        } 
+    },
+];
 
-* [Installation](#installation)
-* [Usage](#usage)
-* [contribution](#contribution)
-* [Credits](#credits)
-* [License](#license)
-# Installation
-${installation}
-## Usage
-${usage}
-## contribution$
-${contribution}
-### Instructions
-${instructions}
-## Credits
-${credit}
-## License
-${license}
 
-# Contact
-* Github : ${git}
-*LinkedIn :${linkedin}
-*E-mail :${email}' ;
-//function to create readme using fs 
-CreateNewFile(title,template);
+
+function writeToFile(fileName, data) {
+    fs.writeFile(fileName, data, function(err) {
+        console.log(fileName)
+        console.log(data)
+        if (err) {
+            return console.log(err)
+        } else {
+            console.log("success")
+        }
+    })
 }
-);
-//creating our CreateNewFile function
-function createNewFile(filename,template){
-//fs
-fs.writeFile('./${filename.toLowerCase().split( ' ' ).join( )}.md',data(err)=>{
-    if(err){
-        console.log(err)
-    }
-    console.log("Your ReadME has been generated");
-})
-}
 
-//NOW LETS INSTALL OUR PACKAGES
-    
+const writeFile = fileContent => {
+    return new Promise((resolve, reject) => {
+      fs.writeFile('generateMarkdown.js', fileContent, err => {
+       
+        if (err) {
+          reject(err);
+          
+          return;
+        }
+  
+        // if everything went well, resolve the Promise and send the successful data to the `.then()` method
+        resolve({
+          ok: true,
+          message: 'README created!'
+        });
+      });
+    });
+  };

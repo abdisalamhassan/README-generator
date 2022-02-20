@@ -1,7 +1,7 @@
 {
-  "name": "readme-generator",
+  "name": "clear",
   "version": "1.0.0",
-  "description": "",
+  "description": "ReadMe Generator ",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,13 +11,15 @@
     "url": "git+https://github.com/abdisalamhassan/README-generator.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "abdisalam hassan",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/abdisalamhassan/README-generator/issues"
   },
   "homepage": "https://github.com/abdisalamhassan/README-generator#readme",
   "dependencies": {
+    "eslint": "^8.9.0",
     "inquirer": "^8.2.0"
-  }
+  },
+  "devDependencies": {}
 }
