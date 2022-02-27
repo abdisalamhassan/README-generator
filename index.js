@@ -82,6 +82,8 @@ const questions = [
             "GPL",
             "Apache",
         ],
+        name:"License",
+
         validate: LicenseInput => {
             if (LicenseInput) {
                 return true;
@@ -93,8 +95,8 @@ const questions = [
     },
     {
         type: "input",
-        message: "Contact info any questions",
-        name: "Questions",
+        message: "Contact info for any questions",
+        name: "Contact",
         validate: QuestionsInput => {
             if (QuestionsInput) {
                 return true;
@@ -132,22 +134,12 @@ function writeToFile(fileName, data) {
         }
     })
 }
+inquirer.prompt(questions).then(function(answers){
+  var generateString = generateMarkdown(answers)
+  console.log(generateString)
+  writeToFile('./README.md',generateString)
+})
 
-const writeFile = fileContent => {
-    return new Promise((resolve, reject) => {
-      fs.writeFile('generateMarkdown.js', fileContent, err => {
-       
-        if (err) {
-          reject(err);
-          
-          return;
-        }
+
   
-        // if everything went well, resolve the Promise and send the successful data to the `.then()` method
-        resolve({
-          ok: true,
-          message: 'README created!'
-        });
-      });
-    });
-  };
+  

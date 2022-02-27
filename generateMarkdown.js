@@ -2,36 +2,36 @@
 function generateMarkdown(data) {
     return `
 
-    # ${data.Title}
+# ${data.Title}
 
-    ## Table of Contentes
-    *[Description](#description)
-    *[Installation instructions](#installation)
-    *[Usage](#usage)
-    *[License](#License)
-    *[Contribution](#contibutors)
-    *[Test](#test)
-    *[Questions](#questions)
-    
-    ## Description
-    ${data.Description}
+## Table of Contents
 
-    ##Installation instructions
-    ${data.Installation}
+-[Description](#description)
+-[Installation ](#installation)
+-[Usage](#usage)
+-[License](#License)
+-[Contribution](#contibutors)
+-[Contact](#contact)
 
-    ## Usage
-    ${data.Usage}
+## Description
+${data.Description}
 
-    ## License
-    ${data.License}
+## Installation 
+${data.Installation}
 
-    ## Contributors
-    ${data.Contributors}
+## Usage
+${data.Usage}
 
-    ## Questions
-    Contact me:
+## License
+${data.License}
 
-    Github:[${data.Username}](https://github.com/abdisalamhassan)
+## Contibutors
+${data.Contibutors}
+
+## Contact
+ ${data.Contact}
+
+Github:[${data.Username}](https://github.com/abdisalamhassan)
 `;}
 
 module.exports = generateMarkdown;
